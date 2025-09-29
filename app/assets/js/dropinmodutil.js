@@ -17,7 +17,7 @@ const SHADER_CONFIG = 'optionsshaders.txt'
 /**
  * Validate that the given directory exists. If not, it is
  * created.
- * 
+ *
  * @param {string} modsDir The path to the mods directory.
  */
 exports.validateDir = function(dir) {
@@ -25,130 +25,10 @@ exports.validateDir = function(dir) {
 }
 
 /**
- * Scan for drop-in mods in both the mods folder and version
- * safe mods folder.
- * 
- * @param {string} modsDir The path to the mods directory.
- * @param {string} version The minecraft version of the server configuration.
- * 
- * @returns {{fullName: string, name: string, ext: string, disabled: boolean}[]}
- * An array of objects storing metadata about each discovered mod.
- */
-exports.scanForDropinMods = function(modsDir, version) {
-    const modsDiscovered = []
-    if(fs.existsSync(modsDir)){
-        let modCandidates = fs.readdirSync(modsDir)
-        let verCandidates = []
-        const versionDir = path.join(modsDir, version)
-        if(fs.existsSync(versionDir)){
-            verCandidates = fs.readdirSync(versionDir)
-        }
-        for(let file of modCandidates){
-            const match = MOD_REGEX.exec(file)
-            if(match != null){
-                modsDiscovered.push({
-                    fullName: match[0],
-                    name: match[1],
-                    ext: match[2],
-                    disabled: match[3] != null
-                })
-            }
-        }
-        for(let file of verCandidates){
-            const match = MOD_REGEX.exec(file)
-            if(match != null){
-                modsDiscovered.push({
-                    fullName: path.join(version, match[0]),
-                    name: match[1],
-                    ext: match[2],
-                    disabled: match[3] != null
-                })
-            }
-        }
-    }
-    return modsDiscovered
-}
-
-/**
- * Add dropin mods.
- * 
- * @param {FileList} files The files to add.
- * @param {string} modsDir The path to the mods directory.
- */
-exports.addDropinMods = function(files, modsdir) {
-
-    exports.validateDir(modsdir)
-
-    for(let f of files) {
-        if(MOD_REGEX.exec(f.name) != null) {
-            fs.moveSync(f.path, path.join(modsdir, f.name))
-        }
-    }
-
-}
-
-/**
- * Delete a drop-in mod from the file system.
- * 
- * @param {string} modsDir The path to the mods directory.
- * @param {string} fullName The fullName of the discovered mod to delete.
- * 
- * @returns {Promise.<boolean>} True if the mod was deleted, otherwise false.
- */
-exports.deleteDropinMod = async function(modsDir, fullName){
-
-    const res = await ipcRenderer.invoke(SHELL_OPCODE.TRASH_ITEM, path.join(modsDir, fullName))
-
-    if(!res.result) {
-        shell.beep()
-        console.error('Error deleting drop-in mod.', res.error)
-        return false
-    }
-
-    return true
-}
-
-/**
- * Toggle a discovered mod on or off. This is achieved by either 
- * adding or disabling the .disabled extension to the local file.
- * 
- * @param {string} modsDir The path to the mods directory.
- * @param {string} fullName The fullName of the discovered mod to toggle.
- * @param {boolean} enable Whether to toggle on or off the mod.
- * 
- * @returns {Promise.<void>} A promise which resolves when the mod has
- * been toggled. If an IO error occurs the promise will be rejected.
- */
-exports.toggleDropinMod = function(modsDir, fullName, enable){
-    return new Promise((resolve, reject) => {
-        const oldPath = path.join(modsDir, fullName)
-        const newPath = path.join(modsDir, enable ? fullName.substring(0, fullName.indexOf(DISABLED_EXT)) : fullName + DISABLED_EXT)
-
-        fs.rename(oldPath, newPath, (err) => {
-            if(err){
-                reject(err)
-            } else {
-                resolve()
-            }
-        })
-    })
-}
-
-/**
- * Check if a drop-in mod is enabled.
- * 
- * @param {string} fullName The fullName of the discovered mod to toggle.
- * @returns {boolean} True if the mod is enabled, otherwise false.
- */
-exports.isDropinModEnabled = function(fullName){
-    return !fullName.endsWith(DISABLED_EXT)
-}
-
-/**
  * Scan for shaderpacks inside the shaderpacks folder.
- * 
+ *
  * @param {string} instanceDir The path to the server instance directory.
- * 
+ *
  * @returns {{fullName: string, name: string}[]}
  * An array of objects storing metadata about each discovered shaderpack.
  */
@@ -176,9 +56,9 @@ exports.scanForShaderpacks = function(instanceDir){
 /**
  * Read the optionsshaders.txt file to locate the current
  * enabled pack. If the file does not exist, OFF is returned.
- * 
+ *
  * @param {string} instanceDir The path to the server instance directory.
- * 
+ *
  * @returns {string} The file name of the enabled shaderpack.
  */
 exports.getEnabledShaderpack = function(instanceDir){
@@ -199,7 +79,7 @@ exports.getEnabledShaderpack = function(instanceDir){
 
 /**
  * Set the enabled shaderpack.
- * 
+ *
  * @param {string} instanceDir The path to the server instance directory.
  * @param {string} pack the file name of the shaderpack.
  */
@@ -219,7 +99,7 @@ exports.setEnabledShaderpack = function(instanceDir, pack){
 
 /**
  * Add shaderpacks.
- * 
+ *
  * @param {FileList} files The files to add.
  * @param {string} instanceDir The path to the server instance directory.
  */

@@ -76,7 +76,6 @@ tabModsHeaderDesc = "Enable or disable mods."
 switchServerButton = "Switch"
 requiredMods = "Required Mods"
 optionalMods = "Optional Mods"
-dropinMods = "Drop-in Mods"
 addMods = "Add Mods"
 dropinRefreshNote = "(F5 to Refresh)"
 shaderpacks = "Shaderpacks"
@@ -248,13 +247,6 @@ uuid = "UUID"
 selectAccount = "Select Account"
 selectedAccount = "Selected Account ✓"
 logout = "Log Out"
-
-[js.settings.dropinMods]
-removeButton = "Remove"
-deleteFailedTitle = "Failed to Delete<br>Drop-in Mod {fullName}"
-deleteFailedMessage = "Make sure the file is not in use and try again."
-failedToggleTitle = "Failed to Toggle<br>One or More Drop-in Mods"
-okButton = "Okay"
 
 [js.settings.serverListing]
 mainServer = "Main Server"

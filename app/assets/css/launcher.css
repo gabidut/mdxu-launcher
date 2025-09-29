@@ -1498,7 +1498,7 @@ input:checked + .toggleSwitchSlider:before {
 
 .settingsAuthAccountTypeContainer {
     display: flex;
-    width: 75%;
+    width: 95%;
     flex-direction: column;
 }
 
@@ -1558,6 +1558,7 @@ input:checked + .toggleSwitchSlider:before {
     background: rgba(0, 0, 0, 0.25);
     border-radius: 3px;
     border: 1px solid rgba(126, 126, 126, 0.57);
+    width: 100%;
 }
 
 /* Left hand side of an auth account element, for the skin image. */

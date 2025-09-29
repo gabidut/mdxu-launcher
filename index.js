@@ -252,9 +252,9 @@ function createWindow() {
         win.show()
     })*/
 
-    // win.removeMenu()
+    win.removeMenu()
 
-    win.resizable = true
+    win.resizable = false
 
     win.on('closed', () => {
         win = null

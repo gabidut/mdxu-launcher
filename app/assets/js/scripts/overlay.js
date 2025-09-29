@@ -23,18 +23,6 @@ let overlayHandlerContent
  * @param {string} content The overlay content which will be shown.
  * @param {boolean} dismissable Whether or not the overlay is dismissable
  */
-function bindOverlayKeys(state, content, dismissable) {
-    overlayHandlerContent = content
-    document.removeEventListener('keydown', overlayKeyHandler)
-    document.removeEventListener('keydown', overlayKeyDismissableHandler)
-    if (state) {
-        if (dismissable) {
-            document.addEventListener('keydown', overlayKeyDismissableHandler)
-        } else {
-            document.addEventListener('keydown', overlayKeyHandler)
-        }
-    }
-}
 
 /**
  * Toggle the visibility of the overlay.
@@ -51,7 +39,6 @@ function toggleOverlay(toggleState, dismissable = false, content = 'overlayConte
         content = dismissable
         dismissable = false
     }
-    bindOverlayKeys(toggleState, content, dismissable)
     if (toggleState) {
         document.getElementById('main').setAttribute('overlay', true)
         // Make things untabbable.
@@ -291,6 +278,7 @@ async function populateServerListings() {
             document.getElementById('launch_button').querySelector('img').src = serv.rawServer.playbtn
             document.getElementById('banner').src = serv.rawServer.banner
             document.querySelector('.agora-center').style.display = 'none'
+            document.getElementById('discordIcon').setAttribute('src', serv.rawServer.discordicon)
         })
         document.querySelector('.server_selection').append(button)
     }

@@ -58,6 +58,7 @@ function getCurrentView(){
 }
 
 async function showMainUI(data){
+    document.getElementById('discordredirect').setAttribute('href', data.rawDistribution.discord.url)
 
     if(!isDev){
         loggerAutoUpdater.info('Initializing..')
@@ -378,7 +379,6 @@ async function validateSelectedAccount(){
                 if(accLen > 1){
                     prepareAccountSelectionList()
                     $('#overlayContent').fadeOut(250, () => {
-                        bindOverlayKeys(true, 'accountSelectContent', true)
                         $('#accountSelectContent').fadeIn(250)
                     })
                 } else {

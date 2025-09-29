@@ -1,3 +1,4 @@
+
 [ejs.landing]
 updateAvailableTooltip = "Mise à jour disponible"
 usernamePlaceholder = "Nom d'utilisateur"
@@ -122,6 +123,8 @@ launcherUpdatesHeaderDesc = "Télécharger, installer et consulter les mises à 
 checkForUpdates = "Vérifier les mises à jour"
 whatsNew = "Nouveautés"
 updateReleaseNotes = "Notes de mise à jour"
+sourceGithubLink = "https://github.com/gabidut/mdxu-launcher"
+supportLink = "https://github.com/gabidut/mdxu-launcher"
 
 [ejs.waiting]
 waitingText = "En attente de Microsoft.."

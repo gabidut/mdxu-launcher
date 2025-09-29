@@ -1,4 +1,4 @@
-appId: 'helioslauncher'
+appId: 'mdxulauncher'
 productName: 'MDXU Launcher'
 artifactName: '${productName}-setup-${version}.${ext}'
 
